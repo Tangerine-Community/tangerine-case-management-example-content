@@ -1,0 +1,354 @@
+
+      <tangy-form id="query-form" title="Query" category="null"
+        
+      on-open="
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+   
+
+    
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      "
+      exit-clicks="
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      "
+      on-change="
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+     
+      
+      
+      
+      
+      
+      
+      "
+      on-submit="
+        
+        
+        
+        
+      if (getValue('queryResponseCategory') !== '') {
+        inputs.queryResponseDate.value =  new Date().toISOString().substr(0,10);
+        inputs.queryStatus.value = 'Answered';
+   }   
+        
+        
+        
+      
+      
+      
+      
+      
+      
+      
+      "
+    >
+      
+        <tangy-form-item hide-nav-icons id="query-item" 
+          title="Query"
+          
+          on-open="
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+      
+      
+      
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          "
+          on-change="
+            
+if (getValue('queryResponseCategory') === '3') {
+ 
+        const formId = 's0-participant-information-f254b9';
+        const variableId = getValue('associatedVariable');
+
+
+        caseService.getQuestionMarkup(formId, variableId).then(
+          (response) => {
+            let questionStart = -1, questionTypeMarkup = '', questionMarkup = '';
+            const searchString = 'name=&quot;' + variableId + '&quot;';
+            const variablePosition = response.indexOf(searchString);
+
+            if (variablePosition > -1) {
+              for (let i = variablePosition; i >= 0; i--) {
+                if (response.substr(i, 1) === '<') {
+                  questionStart = i;
+                  break;
+                }
+              }
+              questionTypeMarkup = response.substr(questionStart + 1, response.indexOf(' ', questionStart) - questionStart - 1);
+            }
+            if (questionTypeMarkup !== '') {
+              questionMarkup = response.substr(questionStart, response.indexOf('</' + questionTypeMarkup, questionStart )
+                              - questionStart + questionTypeMarkup.length + 3);
+            }
+  
+            if (!!questionMarkup && inputs.queryResponseQuestion.innerHTML.trim() === '') {
+              inputs.queryResponseQuestion.innerHTML = '<strong>Please make correction below:</strong>' + questionMarkup;
+              inputs.queryResponseQuestion.querySelector(`[name=${variableId}]`).removeAttribute('tangy-if');
+              console.log('<strong>Please make correction below:</strong>' + questionMarkup);
+            }
+        
+          }
+        );
+     
+      }
+
+      if (inputs[variableId] && inputs[variableId].value) {
+        inputs.queryResponse.value = getValue(variableId);
+      }
+          
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+          "
+          category="
+            null
+          "
+        >
+          <template>
+            
+    <tangy-template name="query-summary" class="" style="font-size: 1em;">
+            <div>
+              <p>
+                A data query has been issued. Please review the information below and enter the appropriate response. 
+              </p>
+              <div style="border: 1px gray solid; margin:10px 10px 0px 0px; padding:20px 20px 5px 20px; background-color:var(--tangy-select-background-color, rgba(0, 0, 0, 0.04));">
+                <b>Query details:</b>
+                <ul>
+                  <li><b>Date issued:</b> ${getValue('queryDate')}</li>
+                  <li><b>Query type:</b> ${getValue('queryTypeId')}</li>
+                  <li><b>Screening or enrollment id:</b> ${getValue('associatedCaseName')}</li>
+                  <li><b>Event/visit:</b> ${getValue('associatedEventName')}</li>
+                  <li><b>Form:</b> ${getValue('associatedFormName')}</li>
+                  <li><b>Issue:</b> ${getValue('queryText')}</li>
+                  <li><b>Review form:</b> <a href="/#${getValue('associatedFormLink')}">${getValue('associatedFormName')}</a></li>
+                  <li><b>Status:</b> ${getValue('queryStatus')}</li> 
+              </ul>
+              </div>
+            </div>
+          </tangy-template>
+  
+    <tangy-radio-buttons name="queryResponseCategory" class="" style="" required="" label="Query response:" error-message="" invalid-message="" hint-text="">
+      
+        <option value="1">The value is correct (please provide an explanation)</option>
+      
+        <option value="2">The value is incorrect but cannot be corrected (please provide an explanation)</option>
+      
+        <option value="3">The value is incorrect but I know the correct value (enter correct value below)</option>
+      
+        <option value="4">None of the above (please explain below)</option>
+      
+    </tangy-radio-buttons>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="queryResponseExplanation" class="" style="" tangy-if="getValue('queryResponseCategory') === '1' || getValue('queryResponseCategory') === '2' || getValue('queryResponseCategory') === '4'" required="" label="Please explain:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label=" " name="queryResponse" class="" style="" tangy-if="getValue('queryResponseCategory') === '99'" required="" label="Query response:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedCaseType" class="" style="" hidden="" label="Case type:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedCaseId" class="" style="" hidden="" label="Case id:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedEventId" class="" style="" hidden="" label="Event id:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedFormId" class="" style="" hidden="" label="Form id:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedCaseName" class="" style="" hidden="" label="Enrollment/screening id:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedEventName" class="" style="" hidden="" label="Visit:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedFormName" class="" style="" hidden="" label="Form name:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedFormLink" class="" style="" hidden="" label="Form link:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="associatedVariable" class="" style="" hidden="" label="Variable:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryId" class="" style="" hidden="" label="Query id:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryTypeId" class="" style="" hidden="" label="Query type id:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryDate" class="" style="" hidden="" label="Query date:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryText" class="" style="" hidden="" label="Query text:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryResponseDate" class="" style="" hidden="" label="Query response date:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryStatus" class="" style="" hidden="" label="Query status:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-input type="text" allowed-pattern="" inner-label="" name="queryLink" class="" style="" hidden="" label="Query link:" error-message="" invalid-message="" hint-text=""></tangy-input>
+  
+    <tangy-box name="queryResponseQuestion">
+
+    </tangy-box>
+  
+          </template>
+        </tangy-form-item>
+      
+    </tangy-form>
+  

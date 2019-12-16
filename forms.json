@@ -1,0 +1,118 @@
+[
+   {
+      "listed" : true,
+      "title" : "<t-lang en>Test Cohort Case</t-lang><t-lang fr>Cas de cohorte de test</t-lang>",
+      "icon" : "icons:code",
+      "type" : "case",
+      "searchSettings" : {
+         "primaryTemplate" : "${searchDoc.variables.status === 'Enrolled' ? `${searchDoc.variables.first_name} ${searchDoc.variables.last_name}` : `Not enrolled` }",
+         "shouldIndex" : true,
+         "secondaryTemplate" : "",
+         "variablesToIndex" : [
+            "first_name",
+            "last_name",
+            "status"
+         ]
+      },
+      "src" : "./assets/test-cohort-manifest/form.html",
+      "description" : "<t-lang en>Select this case type to test.</t-lang><t-lang fr>Sélectionnez ce type de cas à tester.</t-lang>",
+      "customSyncSettings": {
+         "enabled": false,
+         "push": false,
+         "pull": false,
+         "excludeIncomplete":false
+       },
+       "couchdbSyncSettings": {
+         "enabled": true,
+         "filterByLocation": true
+       },
+      "id" : "test-cohort-manifest"
+   }, 
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Test Form",
+      "src" : "./assets/test-form/form.html",
+      "customSyncSettings": {
+         "enabled": false,
+         "push": false,
+         "pull": false,
+         "excludeIncomplete":false
+       },
+       "couchdbSyncSettings": {
+         "enabled": true,
+         "filterByLocation": true
+       },
+      "id" : "test-form"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Test Infant Registration",
+      "src" : "./assets/test-infant-registration/form.html",
+      "customSyncSettings": {
+         "enabled": false,
+         "push": false,
+         "pull": false,
+         "excludeIncomplete":false
+       },
+       "couchdbSyncSettings": {
+         "enabled": true,
+         "filterByLocation": true
+       },
+      "id" : "test-infant-registration"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Test Mother Registration",
+      "src" : "./assets/test-mother-registration/form.html",
+      "customSyncSettings": {
+         "enabled": false,
+         "push": false,
+         "pull": false,
+         "excludeIncomplete":false
+       },
+       "couchdbSyncSettings": {
+         "enabled": true,
+         "filterByLocation": true
+       },
+      "id" : "test-mother-registration"
+   },
+   {
+      "type" : "form",
+      "listed" : false,
+      "title" : "Query",
+      "src" : "./assets/query-form/form.html",
+      "customSyncSettings": {
+         "enabled": false,
+         "push": false,
+         "pull": false,
+         "excludeIncomplete":false
+       },
+       "couchdbSyncSettings": {
+         "enabled": true,
+         "filterByLocation": true
+       },
+      "id" : "query-form"
+   },
+   {
+      "id" : "user-profile",
+      "description" : "",
+      "src" : "./assets/user-profile/form.html",
+      "type" : "user-profile",
+      "icon" : "icons:opacity",
+      "title" : "User Profile",
+      "customSyncSettings": {
+         "enabled": false,
+         "push": false,
+         "pull": false,
+         "excludeIncomplete":false
+       },
+       "couchdbSyncSettings": {
+         "enabled": true,
+         "filterByLocation": true
+       },
+      "listed" : false
+   }
+]

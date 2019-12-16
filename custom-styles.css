@@ -1,0 +1,9 @@
+
+html {
+  --accent-color: #2d456b !important;
+  --accent-color-dark: #5a87c0 !important;
+  --tangy-hint-text--font-size: 1.2rem;
+  --tangy-required-indicator--font-size: -4px;
+  --tangy-required-indicator--font-size: -10px;
+  --tangy-required-indicator--font-size: 1.2rem;
+}

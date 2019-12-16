@@ -1,0 +1,31 @@
+<tangy-form id="test-mother-registration"
+  on-submit="
+    if (getValue('consent')) {
+      const participant = caseService.createParticipant('mother-role')
+      caseService.setParticipantData(participant.id, 'first_name', getValue('first_name'))
+      caseService.setParticipantData(participant.id, 'last_name', getValue('last_name'))
+      caseService.setVariable('status', 'Enrolled')
+      caseService.setVariable('first_name', getValue('first_name'))
+      caseService.setVariable('last_name', getValue('last_name'))
+      caseService.setVariable('number_of_children', getValue('number_of_children'))
+      caseService.createEvent('event-definition-test-2')
+      let numberOfChildren = parseInt(getValue('number_of_children'))
+      while (numberOfChildren !== 0) {
+        caseService.createParticipant('infant-role')
+        numberOfChildren--
+      }
+    } else {
+      caseService.setVariable('status', 'Not enrolled')
+    }
+  "
+>
+  <tangy-form-item id="item1">
+    <tangy-box name="message">
+      This form registers a mother as a participant.
+    </tangy-box>
+    <tangy-checkbox name="consent" label="Does the participant consent?"></tangy-checkbox>
+    <tangy-input name="first_name" label="First name" show-if="getValue('consent')" required></tangy-input> 
+    <tangy-input name="last_name" label="Last name" show-if="getValue('consent')" required></tangy-input> 
+    <tangy-input name="number_of_children" type="number" label="How many children do you have?" show-if="getValue('consent')" required></tangy-input>
+  </tangy-form-item>
+</tangy-form>

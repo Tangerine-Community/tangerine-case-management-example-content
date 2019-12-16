@@ -1,0 +1,86 @@
+{
+  "id": "test-cohort-case",
+  "formId": "test-cohort-manifest",
+  "name": "Test Cohort",
+  "description": "Select this case type to test.",
+  "caseRoles": [
+    {
+      "id": "infant-role",
+      "label": "<t-lang en>Infant</t-lang><t-lang fr>Bébé</t-lang>",
+      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> ${data.first_name ? data.first_name : ''} ${data.last_name ? data.last_name : ''} (Infant ${id})"
+    },
+    {
+      "id": "mother-role",
+      "label": "<t-lang en>Mother</t-lang><t-lang fr>Mère</t-lang>",
+      "templateListItem": "<t-lang en>Forms for</t-lang><t-lang fr>Formulaires pour</t-lang> ${data.first_name ? data.first_name : ''} ${data.last_name ? data.last_name : ''} (Mother ${id.substr(0,6)})"
+    }
+  ],
+  "templateCaseTitle": "${getVariable('participant_id') ? `${getVariable('first_name')} ${getVariable('last_name')}` : '...'}",
+  "templateCaseDescription": "${getVariable('participant_id') ? `<b>Participant ID</b>: ${getVariable('participant_id')} <b>Village</b>: ${getVariable('village')} <b>Head of household</b>: ${getVariable('headofhouse')}` : '...'}",
+  "templateCaseEventListItemIcon": "${caseEvent.complete ? 'event_available' : 'event_note'}",
+  "templateCaseEventListItemPrimary": "<span>${caseEventDefinition.name}</span>",
+  "templateCaseEventListItemSecondary": "Status: ${caseEvent.status}",
+  "templateEventFormListItemIcon": "",
+  "templateEventFormListItemPrimary": "<span>${eventFormDefinition.name}</span>",
+  "templateEventFormListItemSecondary": "Status: ${!eventForm.complete ? 'Incomplete' : 'Complete'}",
+  "startFormOnOpen": {
+    "eventId": "event-definition-test-1",
+    "eventFormId": "event-form-definition-1"
+  },
+  "eventDefinitions": [ 
+    {
+      "id": "event-definition-test-1",
+      "name": "Event 1",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-1",
+          "formId": "test-mother-registration",
+          "name": "Mother registration",
+          "forCaseRole": "",
+          "required": true,
+          "repeatable": false 
+        },
+        {
+          "id": "event-form-definition-2",
+          "formId": "test-infant-registration",
+          "name": "Infant registration",
+          "forCaseRole": "infant-role",
+          "required": true,
+          "repeatable": false 
+        }
+      ]
+    },
+    {
+      "id": "event-definition-test-2",
+      "name": "Event 2",
+      "description": "",
+      "repeatable": false,
+      "estimatedTimeFromCaseOpening": 0,
+      "estimatedTimeWindow": 0,
+      "required": true,
+      "eventFormDefinitions": [
+        {
+          "id": "event-form-definition-5",
+          "formId": "test-form",
+          "name": "Test form for mother",
+          "forCaseRole": "mother-role",
+          "required": true,
+          "repeatable": false 
+        },
+        {
+          "id": "event-form-definition-6",
+          "formId": "test-form",
+          "name": "Test form for infant",
+          "forCaseRole": "infant-role",
+          "required": true,
+          "repeatable": false 
+        }
+      ]
+    }
+  ]
+}

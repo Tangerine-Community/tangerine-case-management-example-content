@@ -1,0 +1,21 @@
+<tangy-form id="test-infant-registration"
+  on-submit="
+    const participantId = caseService
+      .case
+      .events
+      .find(event => event.id === window.location.hash.split('/')[5])
+      .eventForms
+      .find(eventForm => eventForm.id === window.location.hash.split('/')[6])
+      .participantId
+    caseService.setParticipantData(participantId, 'first_name', getValue('first_name'))
+    caseService.setParticipantData(participantId, 'last_name', getValue('last_name'))
+  "
+>
+  <tangy-form-item id="item1">
+    <tangy-box name="message">
+      This gets details for infant.
+    </tangy-box>
+    <tangy-input name="first_name" label="First name" required></tangy-input> 
+    <tangy-input name="last_name" label="Last name" required></tangy-input> 
+  </tangy-form-item>
+</tangy-form>

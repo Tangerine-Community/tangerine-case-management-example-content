@@ -1,0 +1,27 @@
+{
+   "associateUserProfileMode": "local-new",
+   "sharedUserDatabase": true,
+   "syncProtocol" : "2",
+   "homeUrl" : "case-home",
+   "serverUrl" : "https://CHANGEME/",
+   "modules" : [
+      "csv"
+   ],
+   "showQueries" : true,
+   "uploadUnlockedFormReponses" : false,
+   "securityQuestionText" : "What is your year of birth?",
+   "hideProfile" : true,
+   "groupId" : "CHANGEME",
+   "direction" : "undefined",
+   "columnsOnVisitsTab" : [],
+   "listUsernamesOnLoginScreen" : true,
+   "securityPolicy" : [
+      "password"
+   ],
+   "languageCode" : "en",
+   "languageDirection" : "ltr",
+   "hashSecurityQuestionResponse" : false,
+   "groupName" : "CHANGEME",
+   "barcodeSearchMapFunction": "if ((JSON.parse(data)).participant_id) { return (JSON.parse(data)).participant_id } else { throw 'Incorrect format'} "
+ }
+ 
