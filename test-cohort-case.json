@@ -23,6 +23,7 @@
   "templateEventFormListItemIcon": "",
   "templateEventFormListItemPrimary": "<span>${eventFormDefinition.name}</span>",
   "templateEventFormListItemSecondary": "Status: ${!eventForm.complete ? 'Incomplete' : 'Complete'}",
+  "templateBreadcrumbText": "${!participant ? `Case: ${caseService.case._id.substr(0,6)}` : ''}${participant && participant.data && participant.data.first_name && participant.data.last_name ? `Participant: ${participant.data.first_name} ${participant.data.last_name}` : ''}",
   "startFormOnOpen": {
     "eventId": "event-definition-test-1",
     "eventFormId": "event-form-definition-1"
@@ -52,6 +53,14 @@
           "forCaseRole": "infant-role",
           "required": true,
           "repeatable": false 
+        },
+        {
+          "id": "sae",
+          "formId": "test-infant-registration",
+          "name": "SAE",
+          "forCaseRole": "infant-role",
+          "required": false,
+          "repeatable": true 
         }
       ]
     },
